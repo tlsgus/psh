@@ -3,133 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>내 포트폴리오 | 대시보드</title>
+    <title>내 포트폴리오 | 2026</title>
     <style>
         :root {
             --primary: #2563eb;
             --bg: #f8fafc;
-            --card: #ffffff;
+            --text: #1e293b;
         }
 
         body { 
             font-family: 'Pretendard', sans-serif; 
-            margin: 0; background: var(--bg); 
-            display: flex; flex-direction: column; align-items: center;
-            min-height: 100vh;
+            margin: 0; background: var(--bg); color: var(--text);
+            overflow-x: hidden;
         }
 
-        /* 메인 타이틀 */
-        .header { text-align: center; margin: 50px 0; }
-
-        /* 메뉴 선택창 (그리드 방식) */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            max-width: 600px;
-            width: 90%;
-        }
-
-        .menu-item {
-            background: var(--card);
+        /* 공통 섹션 스타일 */
+        .page {
+            display: none; /* 기본적으로 모든 페이지 숨김 */
+            width: 100vw; min-height: 100vh;
             padding: 40px 20px;
-            border-radius: 20px;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            font-weight: bold;
+            box-sizing: border-box;
+            animation: fadeIn 0.4s ease-out;
         }
 
-        .menu-item:hover {
-            transform: translateY(-10px);
-            background: var(--primary);
-            color: white;
+        /* 메인 홈페이지만 처음엔 보임 */
+        #main-page { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        /* 상세 내용 창 (기본적으로 숨김) */
-        .content-overlay {
-            display: none; /* 숨김 상태 */
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center; align-items: center;
-            z-index: 1000;
+        /* 메인 메뉴 카드 디자인 */
+        .menu-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 20px; width: 100%; max-width: 500px; margin-top: 30px;
         }
 
-        .content-box {
-            background: white;
-            width: 90%; max-width: 600px;
-            padding: 30px; border-radius: 20px;
-            position: relative;
-            animation: slideUp 0.3s ease-out;
+        .menu-card {
+            background: white; padding: 40px 20px; border-radius: 20px;
+            text-align: center; cursor: pointer; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s;
         }
 
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .menu-card:hover { 
+            background: var(--primary); color: white; transform: scale(1.05); 
         }
 
-        .close-btn {
-            position: absolute; top: 20px; right: 20px;
-            cursor: pointer; font-size: 1.5rem; border: none; background: none;
+        /* 상세 페이지 스타일 */
+        .content-container { max-width: 700px; margin: 0 auto; background: white; padding: 40px; border-radius: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .back-btn {
+            display: inline-block; margin-bottom: 20px; padding: 10px 20px;
+            background: #e2e8f0; border-radius: 10px; cursor: pointer; text-decoration: none; color: black; font-weight: bold;
         }
+        .back-btn:hover { background: #cbd5e1; }
 
-        .tag { background: #eee; padding: 5px 10px; border-radius: 5px; font-size: 0.9rem; }
+        h2 { color: var(--primary); border-bottom: 3px solid var(--primary); display: inline-block; padding-bottom: 5px; }
+        .tag { background: #dbeafe; color: #1e40af; padding: 5px 12px; border-radius: 6px; font-weight: bold; margin-right: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>My Portfolio</h1>
-        <p>🎵 Sniper - Yuika </p>
+    <div id="main-page" class="page" style="display: flex;">
+        <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Portfolio 2026 🎵</h1>
+        <p>환영합니다! 아래 항목을 눌러 상세 정보를 확인하세요.</p>
+        
+        <div class="menu-grid">
+            <div class="menu-card" onclick="navigateTo('about-page')">👤 자기소개</div>
+            <div class="menu-card" onclick="navigateTo('skills-page')">🛠 기술스택</div>
+            <div class="menu-card" onclick="navigateTo('certs-page')">📜 자격증</div>
+            <div class="menu-card" onclick="navigateTo('awards-page')">🏆 수상경력</div>
+        </div>
     </div>
 
-    <div class="menu-grid">
-        <div class="menu-item" onclick="showContent('about')">👤 자기소개</div>
-        <div class="menu-item" onclick="showContent('skills')">🛠 기술스택</div>
-        <div class="menu-item" onclick="showContent('certs')">📜 자격증</div>
-        <div class="menu-item" onclick="showContent('awards')">🏆 수상경력</div>
+    <div id="about-page" class="page">
+        <div class="content-container">
+            <div class="back-btn" onclick="navigateTo('main-page')">← 뒤로가기</div>
+            <h2>👤 About Me</h2>
+            <p style="font-size: 1.2rem;">안녕하세요, 끊임없이 도전하는 <strong>[이름]</strong>입니다.</p>
+            <p>음악을 들으며 코딩하는 시간을 가장 좋아합니다. 2026년 현재 저는 웹 개발과 데이터 분석에 집중하고 있습니다.</p>
+        </div>
     </div>
 
-    <div id="overlay" class="content-overlay">
-        <div class="content-box">
-            <button class="close-btn" onclick="hideContent()">&times;</button>
-            <div id="content-body">
-                </div>
+    <div id="skills-page" class="page">
+        <div class="content-container">
+            <div class="back-btn" onclick="navigateTo('main-page')">← 뒤로가기</div>
+            <h2>🛠 Tech Stacks</h2>
+            <p>다양한 도구를 활용하여 문제를 해결합니다.</p>
+            <div style="margin-top:20px;">
+                <span class="tag">Python</span> <span class="tag">HTML/CSS</span> <span class="tag">JavaScript</span> <span class="tag">Git</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="certs-page" class="page">
+        <div class="content-container">
+            <div class="back-btn" onclick="navigateTo('main-page')">← 뒤로가기</div>
+            <h2>📜 Certifications</h2>
+            <ul>
+                <li style="margin-bottom: 15px;"><strong>정보처리기사</strong> (2025.05)</li>
+                <li style="margin-bottom: 15px;"><strong>SQLD</strong> (2024.11)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="awards-page" class="page">
+        <div class="content-container">
+            <div class="back-btn" onclick="navigateTo('main-page')">← 뒤로가기</div>
+            <h2>🏆 Awards</h2>
+            <p><strong>교내 캡스톤 디자인 경진대회 금상</strong> (2025)</p>
+            <p style="color: #64748b;">- 웹 기반 실시간 알림 서비스 제작 및 팀 리딩 담당</p>
         </div>
     </div>
 
     <script>
-        // 각 섹션별 데이터
-        const data = {
-            about: `<h2>👤 About Me</h2><p>안녕하세요! 2026년형 인재 [이름]입니다. <br>꼼꼼한 성격과 창의적인 마인드를 가지고 있습니다.</p>`,
-            skills: `<h2>🛠 Tech Stacks</h2><p><span class="tag">Python</span> <span class="tag">HTML/CSS</span> <span class="tag">JavaScript</span></p>`,
-            certs: `<h2>📜 Certifications</h2><ul><li>정보처리기사 (2025)</li><li>SQLD (2024)</li></ul>`,
-            awards: `<h2>🏆 Awards</h2><p>교내 캡스톤 대회 금상 수상 (2025)<br>- 서비스 기획 및 개발 총괄</p>`
-        };
+        // 화면 전환 함수
+        function navigateTo(pageId) {
+            // 1. 모든 페이지 숨기기
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.display = 'none';
+            });
 
-        // 창 열기 함수
-        function showContent(section) {
-            document.getElementById('content-body').innerHTML = data[section];
-            document.getElementById('overlay').style.display = 'flex';
-        }
-
-        // 창 닫기 함수
-        function hideContent() {
-            document.getElementById('overlay').style.display = 'none';
-        }
-
-        // 바깥 어두운 영역 클릭 시 닫기
-        window.onclick = function(event) {
-            const overlay = document.getElementById('overlay');
-            if (event.target == overlay) {
-                hideContent();
+            // 2. 선택한 페이지 보여주기
+            const targetPage = document.getElementById(pageId);
+            if (pageId === 'main-page') {
+                targetPage.style.display = 'flex'; // 메인만 flex로 중앙정렬
+            } else {
+                targetPage.style.display = 'block';
             }
+
+            // 3. 페이지 전환 시 맨 위로 스크롤
+            window.scrollTo(0, 0);
         }
     </script>
 
 </body>
 </html>
-
